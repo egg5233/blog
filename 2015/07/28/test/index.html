@@ -7,29 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="最近在改寫obj-c的code到swift
 遇到了原本大量使用block的地方卡住了
-研究了幾天終於有點心得
-以下使用swift2.0
-1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if">
+研究了一下終於有點心得
+以下範例使用swift2.0
+先假設我們今天有個function 
+需要傳入兩個參數
+1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="該死的Swift Closure">
 <meta property="og:url" content="https://github.com/egg5233/blog/2015/07/28/test/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="最近在改寫obj-c的code到swift
 遇到了原本大量使用block的地方卡住了
-研究了幾天終於有點心得
-以下使用swift2.0
-1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if">
+研究了一下終於有點心得
+以下範例使用swift2.0
+先假設我們今天有個function 
+需要傳入兩個參數
+1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType,">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/1.png">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/2.png">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/4.png">
-<meta property="og:updated_time" content="2015-07-28T07:20:22.000Z">
+<meta property="og:updated_time" content="2015-07-28T09:12:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="該死的Swift Closure">
 <meta name="twitter:description" content="最近在改寫obj-c的code到swift
 遇到了原本大量使用block的地方卡住了
-研究了幾天終於有點心得
-以下使用swift2.0
-1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if">
+研究了一下終於有點心得
+以下範例使用swift2.0
+先假設我們今天有個function 
+需要傳入兩個參數
+1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType,">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -99,8 +105,10 @@
       
         <p>最近在改寫obj-c的code到swift
 遇到了原本大量使用block的地方卡住了</p>
-<p>研究了幾天終於有點心得</p>
-<p>以下使用swift2.0</p>
+<p>研究了一下終於有點心得</p>
+<p>以下範例使用swift2.0</p>
+<p>先假設我們今天有個function 
+需要傳入兩個參數</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">petType</span>:<span class="title">Int</span> </span>&#123;</span><br><span class="line"><span class="keyword">case</span> dog = <span class="number">0</span></span><br><span class="line"><span class="keyword">case</span> cat = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge</span><span class="params">(type:petType, age:Int)</span></span>-&gt; <span class="type">Void</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"dog:<span class="subst">\(<span class="number">16</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"cat:<span class="subst">\(<span class="number">15</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>呼叫
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printCatOrDogAge(petType.dog, age: <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
@@ -139,7 +147,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicn0j3p60000a2t6424sdiq1" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicn4kazb0000fit6bemekc58" class="article-share-link">Share</a>
       
       
     </footer>
