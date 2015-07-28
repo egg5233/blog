@@ -5,16 +5,16 @@
   
   <title>該死的Swift Closure | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="123456789101112enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;if (type.rawValue == 0)&amp;#123;print (&quot;dog:\(16+4*(age-1))&quot;)&amp;#125;else &amp;#1">
+  <meta name="description" content="123456789101112enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if (type.rawValue == 0)&amp;#123;        print (&quot;dog:\(16+4*(age-1))&quot;)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="該死的Swift Closure">
 <meta property="og:url" content="https://github.com/egg5233/blog/2015/07/28/test/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="123456789101112enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;if (type.rawValue == 0)&amp;#123;print (&quot;dog:\(16+4*(age-1))&quot;)&amp;#125;else &amp;#1">
-<meta property="og:updated_time" content="2015-07-28T03:25:51.000Z">
+<meta property="og:description" content="123456789101112enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if (type.rawValue == 0)&amp;#123;        print (&quot;dog:\(16+4*(age-1))&quot;)">
+<meta property="og:updated_time" content="2015-07-28T03:39:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="該死的Swift Closure">
-<meta name="twitter:description" content="123456789101112enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;if (type.rawValue == 0)&amp;#123;print (&quot;dog:\(16+4*(age-1))&quot;)&amp;#125;else &amp;#1">
+<meta name="twitter:description" content="123456789101112enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if (type.rawValue == 0)&amp;#123;        print (&quot;dog:\(16+4*(age-1))&quot;)">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -82,19 +82,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">petType</span>:<span class="title">Int</span> </span>&#123;</span><br><span class="line"><span class="keyword">case</span> dog = <span class="number">0</span></span><br><span class="line"><span class="keyword">case</span> cat = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge</span><span class="params">(type:petType, age:Int)</span></span>-&gt; <span class="type">Void</span>&#123;</span><br><span class="line"><span class="keyword">if</span> (type.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line"><span class="built_in">print</span> (<span class="string">"dog:<span class="subst">\(<span class="number">16</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="built_in">print</span> (<span class="string">"cat:<span class="subst">\(<span class="number">15</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">petType</span>:<span class="title">Int</span> </span>&#123;</span><br><span class="line"><span class="keyword">case</span> dog = <span class="number">0</span></span><br><span class="line"><span class="keyword">case</span> cat = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge</span><span class="params">(type:petType, age:Int)</span></span>-&gt; <span class="type">Void</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"dog:<span class="subst">\(<span class="number">16</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"cat:<span class="subst">\(<span class="number">15</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>printCatOrDogAge(petType.dog, age: 1)</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicms7edy0000rut6fux0oaep" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicmsowa400011jt671lbegda" class="article-share-link">Share</a>
       
       
     </footer>
   </div>
   
     
+<nav id="article-nav">
+  
+    <a href="/blog/2015/07/28/test2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          test2
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
   
 </article>
 
@@ -112,7 +126,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">July 2015</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -122,6 +136,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2015/07/28/test2/">test2</a>
+          </li>
         
           <li>
             <a href="/blog/2015/07/28/test/">該死的Swift Closure</a>
