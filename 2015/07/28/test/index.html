@@ -14,7 +14,7 @@
 <meta property="og:description" content="以下使用swift2.0
 1234567891011enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Void&amp;#123;    if (type.rawValue == 0)&amp;#123;        print (&quot;dog:\(16+4*(">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/1.png">
-<meta property="og:updated_time" content="2015-07-28T03:44:45.000Z">
+<meta property="og:updated_time" content="2015-07-28T03:48:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="該死的Swift Closure">
 <meta name="twitter:description" content="以下使用swift2.0
@@ -88,14 +88,19 @@
       
         <p>以下使用swift2.0</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">petType</span>:<span class="title">Int</span> </span>&#123;</span><br><span class="line"><span class="keyword">case</span> dog = <span class="number">0</span></span><br><span class="line"><span class="keyword">case</span> cat = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge</span><span class="params">(type:petType, age:Int)</span></span>-&gt; <span class="type">Void</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"dog:<span class="subst">\(<span class="number">16</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"cat:<span class="subst">\(<span class="number">15</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>呼叫
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printCatOrDogAge(petType.dog, age: <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>輸出:
+輸出:
 <img src="/blog/2015/07/28/test/1.png" alt="1.png" title=""></p>
+<p>現在我想要稍微改一下這個function,讓他第二個parameter接收的不是age:Int,而是另外一個function
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge2</span><span class="params">(type:petType ,closure: <span class="params">(petType)</span></span></span> -&gt; <span class="type">Int</span>) -&gt; <span class="type">Void</span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(closure(type))</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>第二個參數(function)
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">myClouseFunction</span><span class="params">(receivedPetType:petType)</span></span>-&gt;<span class="type">Int</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> age = <span class="type">Int</span>(arc4random_uniform(<span class="number">30</span>))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"generatedAge:<span class="subst">\(age)</span>"</span>)</span><br><span class="line">        <span class="keyword">if</span> (receivedPetType.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">16</span>+<span class="number">4</span>*age)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">15</span>+<span class="number">4</span>*age)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicmsvelc00012dt6o71tluy4" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicmt02fc00013zt6dluklcaf" class="article-share-link">Share</a>
       
       
     </footer>
