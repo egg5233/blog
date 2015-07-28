@@ -21,7 +21,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/blog/css/style.css" type="text/css">
   
 
 </head>
@@ -67,7 +67,7 @@
   
     <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/07/28/test/" class="article-date">
+    <a href="/blog/2015/07/28/test/" class="article-date">
   <time datetime="2015-07-28T03:24:22.000Z" itemprop="datePublished">2015-07-28</time>
 </a>
     
@@ -79,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/28/test/">該死的Swift Closure</a>
+      <a class="article-title" href="/blog/2015/07/28/test/">該死的Swift Closure</a>
     </h1>
   
 
@@ -97,7 +97,7 @@
 <p>呼叫
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge(petType.dog, age: <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
 <p>輸出:
-<img src="/2015/07/28/test/1.png" alt="1.png" title=""></p>
+<img src="/blog/2015/07/28/test/1.png" alt="1.png" title=""></p>
 <p>現在我想要稍微改一下printCatOrDogAge,
 讓他第二個parameter接收的不是age:Int,而是另外一個function
 這個function會接收petType,然後回傳random產生的Int</p>
@@ -117,9 +117,9 @@
 <p>4.省略傳入參數,改用$0,$1,$2...</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge2(petType.dog) &#123;</span><br><span class="line">           <span class="keyword">let</span> age = <span class="type">Int</span>(arc4random_uniform(<span class="number">30</span>))</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">"generatedAge:<span class="subst">\(age)</span>"</span>)</span><br><span class="line">           <span class="keyword">if</span> ($<span class="number">0</span>.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">               <span class="keyword">return</span> (<span class="number">16</span>+<span class="number">4</span>*age)</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> (<span class="number">15</span>+<span class="number">4</span>*age)</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 <p>最後輸出的結果:
-<img src="/2015/07/28/test/2.png" alt="2.png" title=""></p>
+<img src="/blog/2015/07/28/test/2.png" alt="2.png" title=""></p>
 <p>如果你在寫closure遇到一些奇怪的報錯,那可能就是你的參數型別不對喔！</p>
-<img src="/2015/07/28/test/4.png" alt="4.png" title="">
+<img src="/blog/2015/07/28/test/4.png" alt="4.png" title="">
 <p>那讓我們來練習一下吧
 把下面的code改成用swift closure
 <figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)printCatOrDogAge2:(petType)type completion:(<span class="keyword">void</span>(^)(petType type))block&#123;</span><br><span class="line">    <span class="keyword">int</span> x=arc4random_uniform(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">if</span> (type==dog)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%i"</span>,<span class="number">16</span>+<span class="number">4</span>*x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%i"</span>,<span class="number">15</span>+<span class="number">4</span>*x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)loadImageWithURL:(<span class="built_in">NSString</span> *)url completion:(<span class="keyword">void</span> (^)(<span class="built_in">NSString</span> *url, <span class="keyword">id</span> responseObject))completion&#123;</span><br><span class="line"></span><br><span class="line">	 <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:url]];</span><br><span class="line">     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];</span><br><span class="line">     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, <span class="keyword">id</span> responseObject) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">                [Tool printCatOrDogAge2:dog completion:^(petType type) &#123;</span><br><span class="line">                    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                        completion(url, responseObject);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;];</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; failure:^(AFHTTPRequestOperation *operation, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            </span><br><span class="line">            completion (url, <span class="literal">nil</span>);</span><br><span class="line">            </span><br><span class="line">        &#125;];</span><br><span class="line">        [operation start];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -131,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicn5k13k0000nmt6a2hr4793" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicn5li7k0000nwt6pkxrqcr4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -156,7 +156,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -168,7 +168,7 @@
       <ul>
         
           <li>
-            <a href="/2015/07/28/test/">該死的Swift Closure</a>
+            <a href="/blog/2015/07/28/test/">該死的Swift Closure</a>
           </li>
         
       </ul>
@@ -201,11 +201,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/blog/js/script.js" type="text/javascript"></script>
 
   </div>
 </body>
