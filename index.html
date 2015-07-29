@@ -65,6 +65,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-FBSDK" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/2015/07/29/FBSDK/" class="article-date">
+  <time datetime="2015-07-29T02:37:12.000Z" itemprop="datePublished">2015-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2015/07/29/FBSDK/">Using FBSDK with Swift</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用pod
+podfile:
+platform :ios, &quot;8.0&quot;
+use_frameworks!
+pod &#39;AFNetworking&#39;, &#39;~&gt; 2.5.4&#39;
+pod &#39;FBSDKCoreKit&#39;, &#39;~&gt; 4.3.0&#39;
+pod &#39;FBSDKShareKit&#39;, &#39;~&gt; 4.3.0&#39;
+pod &#39;FBSDKLoginKit&#39;, &#39;~&gt; 4.3.0&#39;</p>
+<p>先創立一個使用swift的project,
+選擇single view</p>
+<p>在來修改info.plist
+填入你的fb app id,name
+<img src="/blog/2015/07/29/FBSDK/1.png" alt="1.png" title=""></p>
+<p>在appdelegate.swift,加入</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">FBSDKApplicationDelegate</span>.sharedInstance() .application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>修改
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="type">FBSDKProfile</span>.enableUpdatesOnAccessTokenChange(<span class="literal">true</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="type">FBSDKApplicationDelegate</span>.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">applicationDidBecomeActive</span><span class="params">(application: UIApplication)</span></span> &#123;</span><br><span class="line">        <span class="type">FBSDKAppEvents</span>.activateApp()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>===========前置作業到此==============</p>
+<p>Part1. FBLogin</p>
+<p>在storyboard裡面,拉一個UIButton到你的viewcontroller裡面,改成custom class:FBSDKLoginButton
+<img src="/blog/2015/07/29/FBSDK/2.png" alt="2.png" title=""></p>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://github.com/egg5233/blog/2015/07/29/FBSDK/" data-id="cicodkawd00019yt6wz6adoyo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2015/07/28/test/" class="article-date">
@@ -131,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicn6yy8z00007pt620sg2l0z" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicodkavq00009yt6iih43gw7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -156,7 +214,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -166,6 +224,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/blog/2015/07/29/FBSDK/">Using FBSDK with Swift</a>
+          </li>
         
           <li>
             <a href="/blog/2015/07/28/test/">該死的Swift Closure</a>
