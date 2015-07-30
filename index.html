@@ -15,7 +15,7 @@
 <meta name="twitter:title" content="David's Blog">
 <meta name="twitter:description" content="Objective-C &amp; Swift">
   
-    <link rel="alternative" href="/blog/atom.xml" title="David&#39;s Blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="David&#39;s Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -45,14 +45,14 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/blog">Home</a>
+          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/blog/archives">Archives</a>
+          <a class="main-nav-link" href="/archives">Archives</a>
         
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
@@ -127,15 +127,17 @@ p.s 如果你無法在實機上運行,請參考 <a href="http://stackoverflow.co
 <p>這時候跑起來,你會發現如果沒有登入,按了按鈕會沒有反應!</p>
 </blockquote>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">shouldPerformSegueWithIdentifier</span><span class="params">(identifier: String, sender: AnyObject?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="number">_</span> = <span class="type">FBSDKAccessToken</span>.currentAccessToken() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> login = <span class="type">FBSDKLoginManager</span>()</span><br><span class="line">            login.logInWithReadPermissions([<span class="string">"public_profile"</span>, <span class="string">"email"</span>, <span class="string">"user_friends"</span>], handler: &#123; (result, error) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">if</span> ((error) != <span class="literal">nil</span>) &#123;</span><br><span class="line">                    <span class="comment">//失敗</span></span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.isCancelled) &#123;</span><br><span class="line">                    <span class="comment">//取消</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">//成功</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>這樣如果在沒登入的狀態下按按鈕,會自動跳到fb登入的畫面！
+<blockquote>
+<p>這樣如果在沒登入的狀態下按按鈕,會自動跳到fb登入的畫面
 如果你想要畫面自動跳轉,那在if裡面寫preformseguewithidentifier....</p>
+</blockquote>
 <p>如果你想要等fblogin完後再return,要這樣寫
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">shouldPerformSegueWithIdentifier</span><span class="params">(identifier: String, sender: AnyObject?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> <span class="number">_</span> = <span class="type">FBSDKAccessToken</span>.currentAccessToken() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> login = <span class="type">FBSDKLoginManager</span>()</span><br><span class="line">            <span class="keyword">var</span> isSucess:<span class="type">Bool</span>=<span class="literal">false</span></span><br><span class="line">            <span class="keyword">var</span> isRunLoopNested:<span class="type">Bool</span>=<span class="literal">false</span></span><br><span class="line">            <span class="keyword">let</span> isOperationCompleted:<span class="type">Bool</span>=<span class="literal">false</span></span><br><span class="line">            login.logInWithReadPermissions([<span class="string">"public_profile"</span>, <span class="string">"email"</span>, <span class="string">"user_friends"</span>], handler: &#123; (result, error) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">if</span> ((error) != <span class="literal">nil</span>) &#123;</span><br><span class="line">                        isSucess=<span class="literal">false</span></span><br><span class="line">                        isOperationCompleted=<span class="literal">true</span></span><br><span class="line">                        <span class="keyword">if</span> (isRunLoopNested) &#123;</span><br><span class="line">                            <span class="type">CFRunLoopStop</span>(<span class="type">CFRunLoopGetCurrent</span>());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (result.isCancelled) &#123;</span><br><span class="line">                        isSucess=<span class="literal">false</span></span><br><span class="line">                        isOperationCompleted=<span class="literal">true</span></span><br><span class="line">                        <span class="keyword">if</span> (isRunLoopNested) &#123;</span><br><span class="line">                            <span class="type">CFRunLoopStop</span>(<span class="type">CFRunLoopGetCurrent</span>());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        isSucess=<span class="literal">true</span></span><br><span class="line">                        isOperationCompleted=<span class="literal">true</span></span><br><span class="line">                        <span class="keyword">if</span> (isRunLoopNested) &#123;</span><br><span class="line">                            <span class="type">CFRunLoopStop</span>(<span class="type">CFRunLoopGetCurrent</span>());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">if</span> ( !isOperationCompleted) &#123;</span><br><span class="line">                isRunLoopNested = <span class="literal">true</span></span><br><span class="line">                <span class="type">CFRunLoopRun</span>();</span><br><span class="line">                isRunLoopNested = <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> isSucess</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/29/FBSDK/" data-id="cicpj30iu0001pot6bka8bya8" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/29/FBSDK/" data-id="cicpj6g6j0001qft60k97litq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -211,7 +213,7 @@ p.s 如果你無法在實機上運行,請參考 <a href="http://stackoverflow.co
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicpj30i70000pot6rtvublwj" class="article-share-link">Share</a>
+      <a data-url="https://github.com/egg5233/blog/2015/07/28/test/" data-id="cicpj6g5s0000qft6o5c7am7g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -275,9 +277,9 @@ p.s 如果你無法在實機上運行,請參考 <a href="http://stackoverflow.co
     </div>
     <nav id="mobile-nav">
   
-    <a href="/blog" class="mobile-nav-link">Home</a>
+    <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+    <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
     
