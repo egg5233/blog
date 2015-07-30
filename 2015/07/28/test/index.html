@@ -10,37 +10,45 @@
     <meta name="author" content="David">
   
   
-    <meta name="description" content="最近在改寫obj-c的code到swift遇到了原本大量使用block的地方卡住了
+    <meta name="description" content="最近在改寫obj-c的code到swift
+遇到了原本大量使用block的地方卡住了
 研究了一下終於有點心得
 以下範例使用swift2.0
-先假設我們今天有個function需要傳入兩個參數
-enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Vo">
+先假設我們今天有個function 
+需要傳入兩個參數
+enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt;">
   
-  <meta name="description" content="最近在改寫obj-c的code到swift遇到了原本大量使用block的地方卡住了
+  <meta name="description" content="最近在改寫obj-c的code到swift
+遇到了原本大量使用block的地方卡住了
 研究了一下終於有點心得
 以下範例使用swift2.0
-先假設我們今天有個function需要傳入兩個參數
-enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Vo">
+先假設我們今天有個function 
+需要傳入兩個參數
+enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="該死的Swift Closure">
 <meta property="og:url" content="https://github.com/egg5233/blog/2015/07/28/test/index.html">
 <meta property="og:site_name" content="David's Blog">
-<meta property="og:description" content="最近在改寫obj-c的code到swift遇到了原本大量使用block的地方卡住了
+<meta property="og:description" content="最近在改寫obj-c的code到swift
+遇到了原本大量使用block的地方卡住了
 研究了一下終於有點心得
 以下範例使用swift2.0
-先假設我們今天有個function需要傳入兩個參數
-enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Vo">
+先假設我們今天有個function 
+需要傳入兩個參數
+enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt;">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/1.png">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/2.png">
 <meta property="og:image" content="https://github.com/egg5233/blog/blog/2015/07/28/test/4.png">
 <meta property="og:updated_time" content="2015-07-28T10:19:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="該死的Swift Closure">
-<meta name="twitter:description" content="最近在改寫obj-c的code到swift遇到了原本大量使用block的地方卡住了
+<meta name="twitter:description" content="最近在改寫obj-c的code到swift
+遇到了原本大量使用block的地方卡住了
 研究了一下終於有點心得
 以下範例使用swift2.0
-先假設我們今天有個function需要傳入兩個參數
-enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt; Vo">
+先假設我們今天有個function 
+需要傳入兩個參數
+enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogAge(type:petType, age:Int)-&amp;gt;">
   
     <link rel="alternate" href="/atom.xml" title="David&#39;s Blog" type="application/atom+xml">
   
@@ -93,20 +101,27 @@ enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogA
   
   <div class="entry">
     
-      <p>最近在改寫obj-c的code到swift<br>遇到了原本大量使用block的地方卡住了</p>
+      <p>最近在改寫obj-c的code到swift
+遇到了原本大量使用block的地方卡住了</p>
 <p>研究了一下終於有點心得</p>
 <p>以下範例使用swift2.0</p>
-<p>先假設我們今天有個function<br>需要傳入兩個參數</p>
+<p>先假設我們今天有個function 
+需要傳入兩個參數</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">petType</span>:<span class="title">Int</span> </span>&#123;</span><br><span class="line"><span class="keyword">case</span> dog = <span class="number">0</span></span><br><span class="line"><span class="keyword">case</span> cat = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge</span><span class="params">(type:petType, age:Int)</span></span>-&gt; <span class="type">Void</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (type.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"dog:<span class="subst">\(<span class="number">16</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"cat:<span class="subst">\(<span class="number">15</span>+<span class="number">4</span>*(age-<span class="number">1</span>)</span>)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>呼叫<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge(petType.dog, age: <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
-<p>輸出:<br><img src="/blog/2015/07/28/test/1.png" alt="1.png" title=""></p>
-<p>現在我想要稍微改一下printCatOrDogAge,<br>讓他第二個parameter接收的不是age:Int,而是另外一個function<br>這個function會接收petType,然後回傳random產生的Int</p>
+<p>呼叫
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge(petType.dog, age: <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>輸出:
+<img src="/blog/2015/07/28/test/1.png" alt="1.png" title=""></p>
+<p>現在我想要稍微改一下printCatOrDogAge,
+讓他第二個parameter接收的不是age:Int,而是另外一個function
+這個function會接收petType,然後回傳random產生的Int</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge2</span><span class="params">(type:petType ,closure: <span class="params">(petType)</span></span></span> -&gt; <span class="type">Int</span>) -&gt; <span class="type">Void</span>&#123;</span><br><span class="line">        <span class="built_in">print</span>(closure(type))</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>傳入的function</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">myClouseFunction</span><span class="params">(receivedPetType:petType)</span></span>-&gt;<span class="type">Int</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> age = <span class="type">Int</span>(arc4random_uniform(<span class="number">30</span>))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"generatedAge:<span class="subst">\(age)</span>"</span>)</span><br><span class="line">        <span class="keyword">if</span> (receivedPetType.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">16</span>+<span class="number">4</span>*age)</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="number">15</span>+<span class="number">4</span>*age)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>那要怎麼呼叫printCatOrDogAge2?</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge2(petType.dog, closure: myClouseFunction)</span><br></pre></td></tr></table></figure>
-<p>但是這個寫法太麻煩了,因為要另外declare myClouseFunction<br>所以有另外幾種寫法</p>
+<p>但是這個寫法太麻煩了,因為要另外declare myClouseFunction
+所以有另外幾種寫法</p>
 <p>1.完整寫法</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge2(petType.dog , closure: &#123;(petType)-&gt; <span class="type">Int</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">let</span> age = <span class="type">Int</span>(arc4random_uniform(<span class="number">30</span>))</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"generatedAge:<span class="subst">\(age)</span>"</span>)</span><br><span class="line">            <span class="keyword">if</span> (petType.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> (<span class="number">16</span>+<span class="number">4</span>*age)</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> (<span class="number">15</span>+<span class="number">4</span>*age)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
 <p>2.把closure寫在()外面</p>
@@ -115,10 +130,13 @@ enum petType:Int &amp;#123;case dog = 0case cat = 1&amp;#125;func printCatOrDogA
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge2(petType.dog) &#123; petType <span class="keyword">in</span></span><br><span class="line">           <span class="keyword">let</span> age = <span class="type">Int</span>(arc4random_uniform(<span class="number">30</span>))</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">"generatedAge:<span class="subst">\(age)</span>"</span>)</span><br><span class="line">           <span class="keyword">if</span> (petType.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">               <span class="keyword">return</span> (<span class="number">16</span>+<span class="number">4</span>*age)</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> (<span class="number">15</span>+<span class="number">4</span>*age)</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 <p>4.省略傳入參數,改用$0,$1,$2...</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">printCatOrDogAge2(petType.dog) &#123;</span><br><span class="line">           <span class="keyword">let</span> age = <span class="type">Int</span>(arc4random_uniform(<span class="number">30</span>))</span><br><span class="line">           <span class="built_in">print</span>(<span class="string">"generatedAge:<span class="subst">\(age)</span>"</span>)</span><br><span class="line">           <span class="keyword">if</span> ($<span class="number">0</span>.rawValue == <span class="number">0</span>)&#123;</span><br><span class="line">               <span class="keyword">return</span> (<span class="number">16</span>+<span class="number">4</span>*age)</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               <span class="keyword">return</span> (<span class="number">15</span>+<span class="number">4</span>*age)</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-<p>最後輸出的結果:<br><img src="/blog/2015/07/28/test/2.png" alt="2.png" title=""></p>
+<p>最後輸出的結果:
+<img src="/blog/2015/07/28/test/2.png" alt="2.png" title=""></p>
 <p>如果你在寫closure遇到一些奇怪的報錯,那可能就是你的參數型別不對喔！</p>
 <img src="/blog/2015/07/28/test/4.png" alt="4.png" title="">
-<p>那讓我們來練習一下吧<br>把下面的code改成用swift closure<br><figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)printCatOrDogAge2:(petType)type completion:(<span class="keyword">void</span>(^)(petType type))block&#123;</span><br><span class="line">    <span class="keyword">int</span> x=arc4random_uniform(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">if</span> (type==dog)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%i"</span>,<span class="number">16</span>+<span class="number">4</span>*x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%i"</span>,<span class="number">15</span>+<span class="number">4</span>*x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)loadImageWithURL:(<span class="built_in">NSString</span> *)url completion:(<span class="keyword">void</span> (^)(<span class="built_in">NSString</span> *url, <span class="keyword">id</span> responseObject))completion&#123;</span><br><span class="line">     <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:url]];</span><br><span class="line">     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];</span><br><span class="line">     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, <span class="keyword">id</span> responseObject) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">                [Tool printCatOrDogAge2:dog completion:^(petType type) &#123;</span><br><span class="line">                    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                        completion(url, responseObject);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;];</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; failure:^(AFHTTPRequestOperation *operation, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            </span><br><span class="line">            completion (url, <span class="literal">nil</span>);</span><br><span class="line">            </span><br><span class="line">        &#125;];</span><br><span class="line">        [operation start];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那讓我們來練習一下吧
+把下面的code改成用swift closure
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)printCatOrDogAge2:(petType)type completion:(<span class="keyword">void</span>(^)(petType type))block&#123;</span><br><span class="line">    <span class="keyword">int</span> x=arc4random_uniform(<span class="number">30</span>);</span><br><span class="line">    <span class="keyword">if</span> (type==dog)&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%i"</span>,<span class="number">16</span>+<span class="number">4</span>*x);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%i"</span>,<span class="number">15</span>+<span class="number">4</span>*x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)loadImageWithURL:(<span class="built_in">NSString</span> *)url completion:(<span class="keyword">void</span> (^)(<span class="built_in">NSString</span> *url, <span class="keyword">id</span> responseObject))completion&#123;</span><br><span class="line">     <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:url]];</span><br><span class="line">     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];</span><br><span class="line">     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, <span class="keyword">id</span> responseObject) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">                [Tool printCatOrDogAge2:dog completion:^(petType type) &#123;</span><br><span class="line">                    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                        completion(url, responseObject);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;];</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125; failure:^(AFHTTPRequestOperation *operation, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">            </span><br><span class="line">            completion (url, <span class="literal">nil</span>);</span><br><span class="line">            </span><br><span class="line">        &#125;];</span><br><span class="line">        [operation start];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>先更改printCatOrDogAge2裡面的return type,再來改寫</p>
 <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">printCatOrDogAge2</span><span class="params">(type:petType ,closure: <span class="params">(petType)</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">Void</span>&#123;</span><br><span class="line">                <span class="built_in">print</span>(closure(type))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>          
 <p>你答對了嗎?</p>
